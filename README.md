@@ -6,6 +6,8 @@ This is a dockerfile and compose setup to run [atlascloud-backup](https://bitbuc
 
 ## Setup
 
+**First read the atlascloud-backup [README](https://bitbucket.org/addcraftio/atlascloud-backup/src/master/README.md)!**
+
 Steps to go:
 
 1. Clone the project repository
