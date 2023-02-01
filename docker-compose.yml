@@ -1,0 +1,7 @@
+version: '3.9'
+services:
+  atlascloud-backup:
+    build: .
+    volumes:
+      - ./config.yml:/app/config.yml:ro # Copy `config.yml.dist` to `config.yml`
+      - ./backups:/app/backups # create and map a backup folder on your host

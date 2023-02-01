@@ -1,0 +1,64 @@
+###
+# atlascloud-backup Configuration
+# Template for config.yml - please adjust and rename!
+###
+
+# Sites: defines each cloud site you want to backup, each with its own access token.
+# Each site is defined with its subdomain as the key. So, if you want to back up
+# at "acme.atlassian.net", add the following:
+# acme:
+#   email: (the e-mail of the user of the site you used to create the API token)
+#   token: (the API token your created for the given email address)
+#   includeAttachments (true or false, whether to include attachment files or go data-only)
+sites:
+  # All Confluence sites in here!
+  confluence:
+    acme:
+      email: joe@acme.io
+      token: PPPLLLEEEEAASSEEEREPLACE
+      includeAttachments: true
+
+  # All Jira sites in here!
+  jira:
+    acme:
+      email: joe@acme.io
+      token: PPPLLLEEEEAASSEEEREPLACE
+      includeAttachments: true
+
+# Backups: defines how the backups should be stored on your local system and how the backup
+# process should behave.
+# The tool creates and manages a folder structure in the given path. Do not share with other
+# applications! The structure:
+# - jira
+#   - sitename (like "acme")
+#     - (all backups, named like "backup-jira-acme-2025-103-14-09-30.zip")
+# - confluence
+#   - sitename (like "acme")
+#     - (all backups, same principle)
+# All those settings can be omitted from the config file, defaults apply.
+backups:
+  # Where to store the backup files? Default is './backups/' in the script folder. End with slash!
+  path: ./backups
+  # Only the {retainCount} newest backups are kept, older ones are deleted. Default 7.
+  retainCount: 7
+  # For status checks: how old in hours is acceptable for the newest backup per site? Default 192.
+  maxAgeHours: 192
+  # For status checks: how much smaller may the newest backup be than the previous one? Default 10%.
+  maxSizeShrinkPercent: 10
+  # How long do we allow the Atlassian cloud to take when creating backups? Default 120min.
+  # Raise this if you have big instances!
+  maxWaitMinutes: 120
+  # What is the interval in seconds between checks at the Atlassian cloud if the backup is done? Default 10s.
+  sleepSeconds: 10
+
+# Opsgenie: this tool integrates with OpsGenie and can create incidents if status checks fail. It also sends
+# a heartbeat if a heartbeat name is configured. Run the 'ops-heartbeat' command for both and rest assured
+# that your backups are fine!
+opsgenie:
+  # The API key for the REST integration you created in OpsGenie. No default, OpsGenie is disabled without.
+  apiKey: 00000000-0000-0000-0000-000000000000
+  # The name of the created heartbeat. No default, if omitted no heartbeat is sent.
+  heartbeat: mybeat
+  # The URL of the opsgenie API. Change this if you use opsgenie in a non-US data center.
+  # See https://support.atlassian.com/opsgenie/docs/european-service-region/ for an overview of the API URLs
+  url: https://api.opsgenie.com
